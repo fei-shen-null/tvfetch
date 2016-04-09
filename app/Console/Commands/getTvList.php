@@ -52,10 +52,10 @@ class getTvList extends Command
                 $dayOfWeek++;
                 continue;
             }
-            preg_match('/archives\/(?P<id>.+)\//',$tds->item(0)->firstChild->getAttribute('href'),$tvID);
+            preg_match('/archives\/(?P<id>.+)\//', $tds->item(0)->firstChild->getAttribute('href'), $tvID);
             $tv = array(
                 'tv_id' => $tvID['id'],
-                'day_of_week'=>$dayOfWeek,
+                'day_of_week' => $dayOfWeek,
                 'name_cn' => $tds->item(0)->firstChild->nodeValue,
                 'name_en' => $tds->item(2)->nodeValue,
                 'channel' => $tds->item(4)->nodeValue,
