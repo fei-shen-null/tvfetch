@@ -15,11 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hello',function(){
-    $users=DB::table('users')->first();
-    return 'Hello '.$users->name;
+Route::get('/hello', function () {
+    $users = DB::table('users')->first();
+    return 'Hello ' . $users->name;
 });
-Route::get('/list',function(){
+
+Route::get('tv/{tv}', 'TvController@showTv');
+
+Route::auth();
+Route::get('getList', function () {
     Artisan::call('tv:getList');
 });
-Route::auth();
