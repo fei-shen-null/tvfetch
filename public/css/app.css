@@ -1,0 +1,13 @@
+.tvList {
+    position: relative;
+    width: 500px;
+    top: 50px;
+    padding-top: 70px;
+}
+
+.modal-dialog, .modal-content, .modal .modal-body, .modal iframe {
+    width: 100%;
+    height: 90%;
+    padding: 0;
+    margin: 0;
+}

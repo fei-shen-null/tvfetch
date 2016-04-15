@@ -7,10 +7,10 @@
             |
             <td></td>{{$tv['name_en']}}
             <td></td>
-            <td><a href="http://cn163.net/archives/{{$tv['id']}}">
+            <td><a href="{{env('TVFETCH_SOURCE').$tv['id']}}">
                     <button>Details</button>
                 </a></td>
-            <td><a href="{{env('APP_URL').'/subscribe/'.$tv['id']}}">
+            <td><a href="{{url('/subscribe/'.$tv['id'])}}">
                     <button>Subscribe</button>
                 </a>
             <td></td>
