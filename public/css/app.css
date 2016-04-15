@@ -1,13 +1,14 @@
 .tvList {
     position: relative;
     width: 500px;
-    top: 50px;
+    top: 0;
     padding-top: 70px;
 }
 
-.modal-dialog, .modal-content, .modal .modal-body, .modal iframe {
-    width: 100%;
-    height: 90%;
-    padding: 0;
-    margin: 0;
+#loginModal .modal-dialog {
+    width: 300px;
+}
+
+#loginModal label {
+    top: 0;
 }

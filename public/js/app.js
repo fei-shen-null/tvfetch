@@ -1,10 +1,9 @@
-var detailFref;
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
     //add affix to navbar
     // $(".navbar").affix({offset: {top: 0}});
     // Add scrollspy to <body>
-    $('body').scrollspy({target: "#weekScrollspy", offset: 50});
+    $('body').scrollspy({target: "#weekScrollspy", offset: 0});
     // Add smooth scrolling on all links inside the navbar
     $("#weekNavbar").find("a").on('click', function (event) {
         // Prevent default anchor click behavior
@@ -23,8 +22,96 @@ $(document).ready(function () {
             window.location.hash = hash;
         });
     });
-    //modal iframe
-    $('.modal').on('shown.bs.modal', function () {
-        $(this).find('iframe').attr('src', detailFref);
-    })
+    //csrf
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    //logout btn
+    if (checkCookie()) {
+        $('#logoutBtn').show();
+    } else {
+        $('#logoutBtn').hide();
+    }
 });
+
+
+var email;
+var loginModal = $('#loginModal');
+function checkCookie() {
+    return (document.cookie.indexOf('email=') > -1);
+}
+var loginModalBtn = $('#loginModalSubmit');
+var failFunc = function (xhr, textStatus, error) {
+    toastr.error(xhr.status + ' ' + textStatus + ' ' + error);
+};
+function loginModalSubmit() {
+    loginModalBtn.prop('disabled', true);
+    email = $('#loginModal').find('input[id=email]').val();
+    $.post('login', {
+            email: email
+        }, function (data) {
+            if (data != 0) {
+                toastr.info("Welcome " + email);
+            }
+        })
+        .fail(failFunc)
+        .always(function () {
+            loginModalBtn.prop('disabled', false);
+            loginModal.modal('hide');
+            window.location.reload(true);
+        });
+}
+function unSubTv(tv) {
+    if (!checkCookie()) {
+        //required input email
+        loginModal.modal();
+        return
+    }
+    var btn = $('#sub' + tv).first();
+    btn.fadeToggle();
+    $.post('unsubscribe/' + tv, {
+        email: email
+    }, function (data) {
+        if (data != 0) {
+            $('#sub' + tv)
+                .attr('onclick', 'subTv(' + tv + ')')
+                .addClass('glyphicon-unchecked')
+                .removeClass('glyphicon-check')
+                .parent().attr('data-original-title', 'Subscribe')
+                .parents().eq(2).addClass("panel-default")
+                .removeClass("panel-success");
+            toastr.info("Unsubscribe Success");
+        } else {
+            toastr.warning("Failed to Unsubscribe");
+        }
+    }).fail(failFunc).always(btn.fadeToggle());
+
+}
+function subTv(tv) {
+    if (!checkCookie()) {
+        //required input email
+        loginModal.modal();
+        return
+    }
+    var btn = $('#sub' + tv).first();
+    btn.fadeToggle();
+    $.post('subscribe/' + tv, {
+        email: email
+    }, function (data) {
+        if (data != 0) {
+            btn
+                .attr('onclick', 'unSubTv(' + tv + ')')
+                .addClass('glyphicon-check')
+                .removeClass('glyphicon-unchecked')
+                .parent().attr('data-original-title', 'Unsubscribe')
+                .parents().eq(2).addClass("panel-success")
+                .removeClass("panel-default");
+            toastr.success("Subscribe Success")
+        } else {
+            toastr.warning("Failed to Subscribe");
+        }
+
+    }).fail(failFunc).always(btn.fadeToggle());
+}

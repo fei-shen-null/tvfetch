@@ -1,3 +1,7 @@
+/resources/views/welcome.blade.php
+/resources/views/home.blade.php
+/resources/views/auth
+/app/Http/Controllers/HomeController.php
 /vendor
 /node_modules
 /public/storage

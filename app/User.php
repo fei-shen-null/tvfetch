@@ -17,10 +17,21 @@ class User extends Authenticatable
     protected $hidden = [
         'remember_token',
     ];
-    protected $primaryKey = 'id';
 
-    public function Sub2NewTv()
+    public static function byEmail($email)
+    {
+
+        return User::firstOrCreate(compact('email'));
+    }
+
+    public function sub2NewTv()
     {
         return $this->hasOne('App\Sub2NewTv');
     }
+
+    public function subTv()
+    {
+        return $this->hasMany('App\SubTv');
+    }
+
 }

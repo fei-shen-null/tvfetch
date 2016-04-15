@@ -11,7 +11,7 @@ class Sub2NewTv extends Model
     protected $primaryKey = 'user_id';
     protected $table = 'subscribe_to_new_tv';
 
-    public function User()
+    public function user()
     {
         return $this->belongsTo('App\User');
     }

@@ -8,15 +8,13 @@ Route::group(['middleware' => 'web'], function () {
     });
 
     Route::get('tv/{tv}', 'TvController@showTv');
-
-    Route::auth();
+    Route::any('subscribe/{tv}', 'SubController@sub');
+    Route::any('unsubscribe/{tv}', 'SubController@unSub');
+    Route::any('login', 'SubController@login');
+    Route::get('logout', 'SubController@logout');
     Route::get('getList', function () {
         Artisan::call('tv:getList');
     });
 
 });
 
-
-Route::auth();
-
-Route::get('/home', 'HomeController@index');
