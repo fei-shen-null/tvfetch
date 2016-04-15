@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link rel="stylesheet" href="/css/app.css">
+    <script src="/js/app.js"></script>
 </head>
 <?php $week = [
         1 => 'Mon',
@@ -98,6 +99,5 @@
 @if(!Session::has('email'))
     @include('modal.login')
 @endif
-<script src="/js/app.js"></script>
 </body>
 </html>

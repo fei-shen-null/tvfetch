@@ -1,4 +1,11 @@
 $(document).ready(function () {
+    //globals
+    loginModal = $('#loginModal');
+    loginModalBtn = $('#loginModalSubmit');
+    failFunc = function (xhr, textStatus, error) {
+        toastr.error(xhr.status + ' ' + textStatus + ' ' + error);
+    };
+    //
     $('[data-toggle="tooltip"]').tooltip();
     //add affix to navbar
     // $(".navbar").affix({offset: {top: 0}});
@@ -38,14 +45,9 @@ $(document).ready(function () {
 
 
 var email;
-var loginModal = $('#loginModal');
 function checkCookie() {
     return (document.cookie.indexOf('email=') > -1);
 }
-var loginModalBtn = $('#loginModalSubmit');
-var failFunc = function (xhr, textStatus, error) {
-    toastr.error(xhr.status + ' ' + textStatus + ' ' + error);
-};
 function loginModalSubmit() {
     loginModalBtn.prop('disabled', true);
     email = $('#loginModal').find('input[id=email]').val();
