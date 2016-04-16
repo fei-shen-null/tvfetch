@@ -20,8 +20,12 @@ class User extends Authenticatable
 
     public static function byEmail($email)
     {
-
-        return User::firstOrCreate(compact('email'));
+        $user = User::where('email', $email)->first();
+        if (is_null($user)) {
+            $user = User::create(compact('email'));
+            Sub2NewTv::create(['user_id' => $user->id]);
+        }
+        return $user;
     }
 
     public function sub2NewTv()
