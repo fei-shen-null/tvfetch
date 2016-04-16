@@ -91,5 +91,6 @@ class getTvList extends Command
                 }, 'email');
             }
         }
+        echo 'getList:' . sizeof($newList);
     }
 }

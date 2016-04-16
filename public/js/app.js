@@ -72,7 +72,7 @@ function unSubTv(tv) {
         return
     }
     var btn = $('#sub' + tv).first();
-    btn.fadeToggle();
+    btn.fadeOut();
     $.post('unsubscribe/' + tv, {
         email: email
     }, function (data) {
@@ -84,11 +84,11 @@ function unSubTv(tv) {
                 .parent().attr('data-original-title', 'Subscribe')
                 .parents().eq(2).addClass("panel-default")
                 .removeClass("panel-success");
-            toastr.info("Unsubscribe Success");
+            toastr.info("Subscription Canceled");
         } else {
-            toastr.warning("Failed to Unsubscribe");
+            toastr.warning("Failed to Cancel Subscription");
         }
-    }).fail(failFunc).always(btn.fadeToggle());
+    }).fail(failFunc).always(btn.fadeIn());
 
 }
 function subTv(tv) {
@@ -98,7 +98,7 @@ function subTv(tv) {
         return
     }
     var btn = $('#sub' + tv).first();
-    btn.fadeToggle();
+    btn.fadeOut();
     $.post('subscribe/' + tv, {
         email: email
     }, function (data) {
@@ -110,10 +110,10 @@ function subTv(tv) {
                 .parent().attr('data-original-title', 'Unsubscribe')
                 .parents().eq(2).addClass("panel-success")
                 .removeClass("panel-default");
-            toastr.success("Subscribe Success")
+            toastr.success("Subscription Success")
         } else {
             toastr.warning("Failed to Subscribe");
         }
 
-    }).fail(failFunc).always(btn.fadeToggle());
+    }).fail(failFunc).always(btn.fadeIn());
 }
