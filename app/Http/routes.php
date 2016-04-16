@@ -8,7 +8,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('logout', 'SubController@logout');
     Route::get('cmd/queue/{name}', function ($name) {
         Artisan::call('queue:work', [
-            '--daemon' => true,
             '--queue' => $name
         ]);
     });
