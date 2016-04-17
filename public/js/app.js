@@ -51,6 +51,7 @@ function checkCookie() {
 function loginModalSubmit() {
     loginModalBtn.prop('disabled', true);
     email = $('#loginModal').find('input[id=email]').val();
+    email = $.trim(email);
     $.post('login', {
             email: email
         }, function (data) {
