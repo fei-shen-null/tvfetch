@@ -22,7 +22,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="loginModalSubmit" onclick="loginModalSubmit()"
-                        class="form-control btn btn-primary">Ok
+                        class="form-control btn btn-primary">Subscribe
                 </button>
             </div>
         </div>

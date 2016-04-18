@@ -2,8 +2,8 @@ $(document).ready(function () {
     //globals
     loginModal = $('#loginModal');
     loginModalBtn = $('#loginModalSubmit');
-    failFunc = function (xhr, textStatus, error) {
-        toastr.error(xhr.status + ' ' + textStatus + ' ' + error);
+    failFunc = function (xhr) {
+        toastr.error(xhr.status + '<br>' + xhr.responseJSON.email);
     };
     //
     $('[data-toggle="tooltip"]').tooltip();
