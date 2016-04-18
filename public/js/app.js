@@ -57,13 +57,15 @@ function loginModalSubmit() {
         }, function (data) {
             if (data != 0) {
                 toastr.info("Welcome " + email);
+                setTimeout(function () {
+                    window.location.reload(true)
+                }, 300);
             }
         })
         .fail(failFunc)
         .always(function () {
             loginModalBtn.prop('disabled', false);
             loginModal.modal('hide');
-            window.location.reload(true);
         });
 }
 function unSubTv(tv) {
