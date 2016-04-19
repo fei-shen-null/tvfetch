@@ -5,6 +5,7 @@ namespace App\Jobs;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Mail;
 
 class newTVmail extends Job implements ShouldQueue
 {
@@ -27,6 +28,11 @@ class newTVmail extends Job implements ShouldQueue
      */
     public function handle()
     {
+        Mail::send('',[
+            
+        ],function($m){
+            
+        });
         
     }
 }

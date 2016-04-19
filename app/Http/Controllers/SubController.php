@@ -22,24 +22,25 @@ class SubController extends Controller
 
     public function checkEmail(Request $request)
     {
-        //use post/get
-        if (!Session::has('email') && !Cookie::has('email')) {
-            $this->validate($request, [
-                'email' => 'required|email|max:255'
-            ]);
-            $this->email = $request->email;
-
-        } //use session
-        elseif (Session::has('email')) {
+        if ($this->user && $this->email) return;
+        //use session
+        if (Session::has('email')) {
             $this->email = Session::get('email');
         }//use cookie
         elseif (Cookie::has('email')) {
             $this->email = Cookie::get('email');
+            Session::put('email', $this->email);
+        }
+        //use post/get
+        elseif (!Session::has('email') && !Cookie::has('email')) {
+            $this->validate($request, [
+                'email' => 'required|email|max:255'
+            ]);
+            $this->email = $request->email;
         } else {
             abort(403, 'Unauthorized action.');
         }
         $this->user = User::byEmail($this->email);
-
     }
 
     public function logout()
