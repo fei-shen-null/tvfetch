@@ -42,7 +42,7 @@ class SubController extends Controller
 
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         Session::forget('email');
         $cookie = Cookie::forget('email');
