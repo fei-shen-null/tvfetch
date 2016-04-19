@@ -6,6 +6,7 @@ use App\Sub2NewTv;
 use App\Tv;
 use App\TvList;
 use Illuminate\Console\Command;
+use Log;
 use Mail;
 
 class getTvList extends Command
@@ -44,7 +45,12 @@ class getTvList extends Command
         $uri = $this->argument('uri');
         $doc = new \DOMDocument('1.0', 'UTF8');
         $internalErrors = libxml_use_internal_errors(true);
-        $doc->loadHTML(file_get_contents($uri));
+        $html = file_get_contents($uri);
+        if ($html === false) {
+            Log::error('Cannot fetch tv list.');
+            die();
+        }
+        $doc->loadHTML($html);
         libxml_use_internal_errors($internalErrors);
         $trs = $doc->getElementsByTagName('tr');
         $dayOfWeek = 0;
@@ -88,7 +94,7 @@ class getTvList extends Command
                 Mail::queue('emails.newtv', ['newTv' => $newTV], function ($m) use ($userChunk) {
                     $m->from('do-not-reply@sp.shenfei.science');
                     $m->cc($userChunk)->subject('New Tv Arrived');
-                }, 'email');
+                }, 'newTvMail');
             }
         }
         echo 'getList:' . sizeof($newList);
