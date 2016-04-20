@@ -5,9 +5,11 @@ $(document).ready(function () {
     failFunc = function (xhr) {
         toastr.error(xhr.status + '<br>' + xhr.responseJSON.email);
     };
+    //affix
+    $(".navbar").affix({offset: {top: $("header").outerHeight()}});
     //
     $('[data-toggle="tooltip"]').tooltip();
-    $('body').scrollspy({target: "#weekScrollspy", offset: 0});
+    $('body').scrollspy({target: "#weekScrollspy", offset: 50});
     // Add smooth scrolling on all links inside the navbar
     $("#weekNavbar").find("a").on('click', function (event) {
         // Prevent default anchor click behavior

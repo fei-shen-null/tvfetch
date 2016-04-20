@@ -27,11 +27,17 @@
         7 => 'Sun'
 ]
 ?>
-<header>
-
+<header class="container-fluid">
+    <div class="jumbotron">
+        <h2>美剧订阅 US Series
+            <small>Subscribe With Email</small>
+        </h2>
+        <p>New Episodes Everyday</p>
+        <p>Subscribe to fnd out more</p>
+    </div>
 </header>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top" id="weekScrollspy">
+<nav class="navbar navbar-inverse" id="weekScrollspy">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#weekNavbar">
             <span class="icon-bar"></span>
@@ -40,20 +46,20 @@
         </button>
         <a class="navbar-brand" href="#">TV Series</a>
     </div>
-
     <div class="collapse navbar-collapse" id="weekNavbar">
         <ul class="nav navbar-nav">
             @foreach($week as $day)
                 <li><a href="#tvList{{$day}}">{{$day}}</a></li>
             @endforeach
         </ul>
-        <ul id="logoutBtn" class="nav navbar-nav navbar-right col-xs-1">
+        <ul id="logoutBtn" class="nav navbar-nav navbar-right">
             <li><a href="" onclick="location.href='logout'" target="_self" class="glyphicon glyphicon-off"></a></li>
         </ul>
     </div>
 </nav>
+<div class="container-fluid">
 @foreach($week as $key=>$day)
-    <div class="container tvList" id="tvList{{$day}}">
+        <div class="tvList center-block" id="tvList{{$day}}">
         @if(isset($tvList[$key]))
             <div class="panel-group" id="accordion{{$day}}">
                 @foreach($tvList[$key] as $tv)
@@ -99,6 +105,7 @@
         @endif
     </div>
 @endforeach
+</div>
 @if(!Session::has('email'))
     @include('modal.login')
 @endif
