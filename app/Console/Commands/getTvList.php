@@ -101,6 +101,6 @@ class getTvList extends Command
         unset($html);
         unset($doc);
         unset($trs);
-        echo 'getList:' . sizeof($newList) . ' new tv' . sizeof($newTV) . '@' . Carbon::now()->toRssString();
+        echo 'getList:' . sizeof($newList) . ' new tv' . sizeof($newTV) . '@' . Carbon::now()->toRssString() . PHP_EOL;
     }
 }

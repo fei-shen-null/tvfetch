@@ -27,6 +27,9 @@
         7 => 'Sun'
 ]
 ?>
+<header>
+
+</header>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" id="weekScrollspy">
     <div class="navbar-header">

@@ -45,6 +45,6 @@ class getEpisodes extends Command
         foreach ($tvList as $tv) {
             dispatch((new getTvEpisodes(Tv::findOrFail($tv->tv_id)))->onQueue('getTvEpisodes'));
         }
-        echo 'getTvEpisodes@' . Carbon::now()->toRssString();
+        echo 'getTvEpisodes@' . Carbon::now()->toRssString() . PHP_EOL;
     }
 }
