@@ -4,6 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Episode
+ *
+ * @property-read \App\Tv $tv
+ * @mixin \Eloquent
+ */
 class Episode extends Model
 {
     protected $table = 'episodes';

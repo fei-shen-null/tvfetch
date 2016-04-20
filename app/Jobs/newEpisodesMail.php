@@ -40,7 +40,7 @@ class newEpisodesMail extends Job implements ShouldQueue
             return;
         }
         Mail::send('emails.newEpisode', ['tv' => $this->tv, 'episode' => $this->episode], function ($m) use ($emails) {
-            $m->from('do-not-reply@sp.shenfei.science');
+            $m->from(env('MAIL_FROM'));
             $m->cc($emails)->subject('New episode from TvFetch');
         });
     }

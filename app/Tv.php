@@ -4,6 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Tv
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\SubTv[] $subTv
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Episode[] $episode
+ * @mixin \Eloquent
+ */
 class Tv extends Model
 {
     protected $table='tv';

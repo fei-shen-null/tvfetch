@@ -4,6 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\TvList
+ *
+ * @mixin \Eloquent
+ */
 class TvList extends Model
 {
     public $timestamps = false;

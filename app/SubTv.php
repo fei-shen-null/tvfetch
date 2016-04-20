@@ -4,6 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\SubTv
+ *
+ * @property-read \App\User $user
+ * @property-read \App\Tv $tv
+ * @mixin \Eloquent
+ */
 class SubTv extends Model
 {
     public $timestamps = false;

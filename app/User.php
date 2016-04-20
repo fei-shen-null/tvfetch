@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * App\User
  *
  * @mixin \Eloquent
+ * @property-read \App\Sub2NewTv $sub2NewTv
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\SubTv[] $subTv
  */
 class User extends Authenticatable
 {
