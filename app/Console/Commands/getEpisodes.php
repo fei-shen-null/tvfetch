@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Jobs\getTvEpisodes;
 use App\Tv;
 use App\TvList;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class getEpisodes extends Command
@@ -44,5 +45,6 @@ class getEpisodes extends Command
         foreach ($tvList as $tv) {
             dispatch((new getTvEpisodes(Tv::findOrFail($tv->tv_id)))->onQueue('getTvEpisodes'));
         }
+        echo 'getTvEpisodes@' . Carbon::now()->toRssString();
     }
 }

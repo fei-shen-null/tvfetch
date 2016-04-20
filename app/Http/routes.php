@@ -14,6 +14,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('cmd/getList', function () {
         Artisan::call('tv:getList');
     });
-
 });
 

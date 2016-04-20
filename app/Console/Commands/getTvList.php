@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Sub2NewTv;
 use App\Tv;
 use App\TvList;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Log;
 use Mail;
@@ -100,6 +101,6 @@ class getTvList extends Command
         unset($html);
         unset($doc);
         unset($trs);
-        echo 'getList:' . sizeof($newList);
+        echo 'getList:' . sizeof($newList) . ' new tv' . sizeof($newTV) . '@' . Carbon::now()->toRssString();
     }
 }
