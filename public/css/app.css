@@ -9,6 +9,7 @@
 }
 
 #loginModal .modal-dialog {
+    padding-top: 10%;
     width: 300px;
 }
 
