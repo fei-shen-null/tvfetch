@@ -91,12 +91,15 @@ class getTvList extends Command
         if (!empty($newTV)) {
             $users = Sub2NewTv::Join('users', (new Sub2NewTv)->getTable() . '.user_id', '=', 'users.id')->pluck('email', 'id')->all();
             foreach (array_chunk($users, env('MAIL_TO_LIMIT', 1000), true) as $userChunk) {
-                Mail::queue('emails.newtv', ['newTv' => $newTV], function ($m) use ($userChunk) {
-                    $m->from('do-not-reply@sp.shenfei.science');
+                Mail::queueOn('newTvMail', 'emails.newtv', ['newTv' => $newTV], function ($m) use ($userChunk) {
+                    $m->from('do-not-reply@sp.shenfei.science')->sender('do-not-reply@sp.shenfei.science');
                     $m->cc($userChunk)->subject('New Tv Arrived');
-                }, 'newTvMail');
+                });
             }
         }
+        unset($html);
+        unset($doc);
+        unset($trs);
         echo 'getList:' . sizeof($newList);
     }
 }
