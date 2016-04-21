@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/css/app.css">
     <script src="/js/app.js"></script>
 </head>
-<?php const WEEK = [
+<?php  $WEEK = [
         1 => 'Mon',
         2 => 'Tue',
         3 => 'Wed',
@@ -48,7 +48,7 @@
     </div>
     <div class="collapse navbar-collapse" id="weekNavbar">
         <ul class="nav navbar-nav">
-            @foreach(WEEK as $day)
+            @foreach($WEEK as $day)
                 <li><a href="#tvList{{$day}}">{{$day}}</a></li>
             @endforeach
         </ul>
@@ -58,7 +58,7 @@
     </div>
 </nav>
 <div class="container-fluid">
-    @foreach(WEEK as $key=>$day)
+    @foreach($WEEK as $key=>$day)
         <div class="tvList center-block" id="tvList{{$day}}">
         @if(isset($tvList[$key]))
             <div class="panel-group" id="accordion{{$day}}">
