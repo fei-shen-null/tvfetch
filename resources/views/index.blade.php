@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>US TV Series Subscribe Download | 美剧 订阅 下载</title>
+    <title>美剧订阅 | 美剧下载 | US TV Series Subscribe Download</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/css/app.css">
     <script src="/js/app.js"></script>
 </head>
-<?php $week = [
+<?php const WEEK = [
         1 => 'Mon',
         2 => 'Tue',
         3 => 'Wed',
@@ -48,7 +48,7 @@
     </div>
     <div class="collapse navbar-collapse" id="weekNavbar">
         <ul class="nav navbar-nav">
-            @foreach($week as $day)
+            @foreach(WEEK as $day)
                 <li><a href="#tvList{{$day}}">{{$day}}</a></li>
             @endforeach
         </ul>
@@ -58,7 +58,7 @@
     </div>
 </nav>
 <div class="container-fluid">
-@foreach($week as $key=>$day)
+    @foreach(WEEK as $key=>$day)
         <div class="tvList center-block" id="tvList{{$day}}">
         @if(isset($tvList[$key]))
             <div class="panel-group" id="accordion{{$day}}">
