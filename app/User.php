@@ -23,7 +23,12 @@ class User extends Authenticatable
     public static function byEmail($email)
     {
         $user = User::where('email', $email)->first();
-        if (is_null($user)) {
+        if (is_null($user)) {//new user
+            //try email first
+            \Mail::send('emails.welcome', [], function ($m) use ($email) {
+                $m->from(env('MAIL_FROM'))->subject('Welcome to TvFetch');
+                $m->to($email);
+            });
             $user = User::create(compact('email'));
             Sub2NewTv::create(['user_id' => $user->id]);
         }
