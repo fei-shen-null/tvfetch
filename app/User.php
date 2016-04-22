@@ -22,7 +22,7 @@ class User extends Authenticatable
 
     public static function byEmail($email)
     {
-        $user = User::where('email', $email)->first();
+        $user = static::hasEmail($email);
         if (is_null($user)) {//new user
             //try email first
             \Mail::send('emails.welcome', [], function ($m) use ($email) {
@@ -33,6 +33,15 @@ class User extends Authenticatable
             Sub2NewTv::create(['user_id' => $user->id]);
         }
         return $user;
+    }
+
+    /**
+     * @param $email
+     * @return User|null
+     */
+    public static function hasEmail($email)
+    {
+        return static::where('email', $email)->first();
     }
 
     public function sub2NewTv()

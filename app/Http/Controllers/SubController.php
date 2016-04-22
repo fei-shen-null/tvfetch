@@ -22,7 +22,6 @@ class SubController extends Controller
 
     public function checkEmail(Request $request)
     {
-        if ($this->user && $this->email) return;
         //use session
         if (Session::has('email')) {
             $this->email = Session::get('email');

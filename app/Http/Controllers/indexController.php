@@ -23,6 +23,10 @@ class IndexController extends Controller
         });
         $subList = new Collection;
         if (Session::has('email')) {
+            //if not in database, revoke cookie|session
+            if (!User::hasEmail(Session::get('email'))) {
+                return (new SubController())->logout();
+            }
             $subList = User::byEmail(Session::get('email'))->subTv()->whereIn('tv_id', TvList::all())->pluck('tv_id');
         }
         return response()->view('index', compact(['tvList', 'subList']));
