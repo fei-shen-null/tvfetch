@@ -31,7 +31,7 @@ class getTvEpisodes extends Job implements ShouldQueue
      */
     public function handle()
     {
-        $uri = env('TVFETCH_SOURCE') . $this->tv->id;
+        $uri = config('tvfetch.TVFETCH_SOURCE') . $this->tv->id;
         $html = file_get_contents($uri);
         if ($html === false) {
             Log::error('Cannot download tv id=' . $this->tv->id);

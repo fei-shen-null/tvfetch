@@ -7,7 +7,7 @@
             |
             <td></td>{{$tv['name_en']}}
             <td></td>
-            <td><a href="{{env('TVFETCH_SOURCE').$tv['id']}}">
+            <td><a href="{{config('tvfetch.TVFETCH_SOURCE').$tv['id']}}">
                     <button>Details</button>
                 </a></td>
             <td><a href="{{url('/subscribe/'.$tv['id'])}}">

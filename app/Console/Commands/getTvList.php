@@ -91,9 +91,9 @@ class getTvList extends Command
         //notify new tv to users
         if (!empty($newTV)) {
             $users = Sub2NewTv::Join('users', (new Sub2NewTv)->getTable() . '.user_id', '=', 'users.id')->pluck('email', 'id')->all();
-            foreach (array_chunk($users, env('MAIL_TO_LIMIT', 1000), true) as $userChunk) {
+            foreach (array_chunk($users, config('tvfetch.MAIL_TO_LIMIT', 1000), true) as $userChunk) {
                 Mail::queueOn('newTvMail', 'emails.newtv', ['newTv' => $newTV], function ($m) use ($userChunk) {
-                    $m->from(env('MAIL_FROM'));
+                    $m->from(config('tvfetch.MAIL_FROM'));
                     $m->cc($userChunk)->subject('New Tv Arrived');
                 });
             }

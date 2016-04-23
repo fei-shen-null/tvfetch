@@ -26,7 +26,7 @@ class User extends Authenticatable
         if (is_null($user)) {//new user
             //try email first
             \Mail::send('emails.welcome', [], function ($m) use ($email) {
-                $m->from(env('MAIL_FROM'))->subject('Welcome to TvFetch');
+                $m->from(config('tvfetch.MAIL_FROM'))->subject('Welcome to TvFetch');
                 $m->to($email);
             });
             $user = User::create(compact('email'));

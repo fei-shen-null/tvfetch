@@ -91,7 +91,8 @@
                                     <li class="list-group-item">Channel: {{$tv->channel}}</li>
                                     <li class="list-group-item">Status: {{$tv->status}}</li>
                                     <span data-toggle="modal" data-target="#tvSource">
-                                <a href="{{env('TVFETCH_SOURCE').$tv->id}}" target="_blank" class="pull-right"
+                                <a href="{{config('tvfetch.TVFETCH_SOURCE').$tv->id}}" target="_blank"
+                                   class="pull-right"
                                    data-toggle="tooltip" data-placement="auto right" title="Details">
                                     <span class="glyphicon glyphicon-link"></span>
                                 </a>
