@@ -13,9 +13,9 @@
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link rel="stylesheet" href="{{elixir('css/app.css')}}">
-    <script async src="{{elixir('js/app.js')}}"></script>
+    <script src="{{elixir('js/app.js')}}"></script>
 </head>
 <?php  $WEEK = [
         1 => 'Mon',
@@ -107,8 +107,8 @@
     </div>
 @endforeach
 </div>
-@if(!Session::has('email'))
+{{--@if(!Session::has('email'))--}}
     @include('modal.login')
-@endif
+{{--@endif--}}
 </body>
 </html>
