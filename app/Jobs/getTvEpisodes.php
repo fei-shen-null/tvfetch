@@ -63,9 +63,7 @@ class getTvEpisodes extends Job implements ShouldQueue
                 dispatch((new newEpisodesMail($this->tv, $newEpisode))->onQueue('newEpisodesMail'));
             }
         }
-        unset($doc);
-        unset($links);
-        unset($html);
+        unset($doc, $links, $html);
     }
 
     private function isEpisode($href)
