@@ -107,8 +107,8 @@
     </div>
 @endforeach
 </div>
-{{--@if(!Session::has('email'))--}}
+@if(!Session::has('email'))
     @include('modal.login')
-{{--@endif--}}
+@endif
 </body>
 </html>
