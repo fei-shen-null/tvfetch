@@ -18,7 +18,7 @@ class IndexController extends Controller
         if (!Session::has('email') && Cookie::has('email')) {
             Session::put('email', Cookie::get('email'));
         }
-        $tvList = Cache::remember('index.tvList', 10, function () {
+        $tvList = Cache::remember('index.tvList', 60, function () {
             return TvList::join('tv', 'tv_list.tv_id', '=', 'tv.id')->get()->groupBy('day_of_week');
         });
         $subList = new Collection;

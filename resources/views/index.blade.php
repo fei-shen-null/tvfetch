@@ -14,8 +14,8 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <script async src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <link rel="stylesheet" href="/css/app.css">
-    <script async src="/js/app.js"></script>
+    <link rel="stylesheet" href="{{elixir('css/app.css')}}">
+    <script async src="{{elixir('js/app.js')}}"></script>
 </head>
 <?php  $WEEK = [
         1 => 'Mon',
