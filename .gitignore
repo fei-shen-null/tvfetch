@@ -1,6 +1,4 @@
 /public/js
-/resources/assets/js
-/resources/assets/sass
 /public/css
 /resources/views/welcome.blade.php
 /resources/views/home.blade.php

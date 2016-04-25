@@ -3,7 +3,17 @@ $(document).ready(function () {
     loginModal = $('#loginModal');
     loginModalBtn = $('#loginModalSubmit');
     failFunc = function (xhr) {
-        toastr.error(xhr.status + '<br>' + xhr.responseJSON.email);
+        if (xhr.responseJSON) {
+            for (err in xhr.responseJSON) {
+                toastr.error(xhr.status + ' ' + xhr.responseJSON[err]);
+            }
+        }
+        else if (xhr.responseText) {
+            toastr.error(xhr.status + ' ' + xhr.responseText);
+        }
+        else if (xhr.responseXML) {
+            toastr.error(xhr.status + ' ' + xhr.responseXML);
+        }
     };
     //affix
     $(".navbar").affix({offset: {top: $("header").outerHeight()}});
@@ -38,7 +48,12 @@ $(document).ready(function () {
         $('#logoutBtn').hide();
     }
 });
-
+function showTvDetailModail(id) {
+    $.get('tvDetail/' + id, function (data) {
+        $('#tvDetailModal').find('.modal-body').html(data);
+        $('#tvDetailModal').modal();
+    }, 'html').fail(failFunc);
+}
 
 var email;
 function checkCookie() {

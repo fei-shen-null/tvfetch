@@ -7,6 +7,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::any('login', 'SubController@login');
     Route::get('logout', 'SubController@logout');
 
+    Route::get('tvDetail/{id}', 'IndexController@tvDetail');
 //    Route::get('cmd/queue/{name}', function ($name) {
 //        Artisan::call('queue:work', [
 //            '--queue' => $name

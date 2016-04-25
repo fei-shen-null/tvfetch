@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Log;
+use Storage;
 
 /**
  * Class getTvEpisodes
@@ -46,7 +47,8 @@ class getTvEpisodes extends Job implements ShouldQueue
             die('Cannot parse html:' . $html);
         }
         libxml_use_internal_errors($internalErrors);
-        $links = $doc->getElementById('entry')->getElementsByTagName('a');
+        $entry = $doc->getElementById('entry');
+        $links = $entry->getElementsByTagName('a');
         $lastValidTxt = '';
         foreach ($links as $link) {
             $href = trim($link->getAttribute('href'));
@@ -67,7 +69,14 @@ class getTvEpisodes extends Job implements ShouldQueue
                 dispatch((new newEpisodesMail($this->tv, $newEpisode))->onQueue('newEpisodesMail'));
             }
         }
-        unset($doc, $links, $html);
+        //save entry to storage
+        $entry->removeChild($entry->getElementsByTagName('div')[0]);
+        $file = 'tv/' . $this->tv->id . '.html';
+        if (Storage::exists($file)) {
+            Storage::delete($file);
+        }
+        Storage::put($file, $doc->saveHTML($entry));
+        unset($doc, $links, $html, $entry);
     }
 
     /**

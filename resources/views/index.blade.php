@@ -60,55 +60,56 @@
 <div class="container-fluid">
     @foreach($WEEK as $key=>$day)
         <div class="tvList center-block" id="tvList{{$day}}">
-        @if(isset($tvList[$key]))
-            <div class="panel-group" id="accordion{{$day}}">
-                @foreach($tvList[$key] as $tv)
-                    <div class="panel panel-{{$subList->contains($tv->id)? 'success':'default'}}">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion{{$day}}"
-                                   href="#collapse{{$tv->id}}">{{$tv->name_cn.' | '.$tv->name_en}}
-                                </a>
-                                @if($subList->contains($tv->id))
-                                    <a class="pull-right" data-toggle="tooltip" data-placement="auto right"
-                                       title="Unsubscribe">
+            @if(isset($tvList[$key]))
+                <div class="panel-group" id="accordion{{$day}}">
+                    @foreach($tvList[$key] as $tv)
+                        <div class="panel panel-{{$subList->contains($tv->id)? 'success':'default'}}">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion{{$day}}"
+                                       href="#collapse{{$tv->id}}">{{$tv->name_cn.' | '.$tv->name_en}}
+                                    </a>
+                                    @if($subList->contains($tv->id))
+                                        <a class="pull-right" data-toggle="tooltip" data-placement="auto right"
+                                           title="Unsubscribe">
                                     <span id="sub{{$tv->id}}" onclick="unSubTv({{$tv->id}})"
                                           class="glyphicon glyphicon-check"></span>
-                                    </a>
-                                @else
-                                    <a class='pull-right' data-toggle="tooltip" data-placement="auto right"
-                                       title="Subscribe">
+                                        </a>
+                                    @else
+                                        <a class='pull-right' data-toggle="tooltip" data-placement="auto right"
+                                           title="Subscribe">
                                         <span id="sub{{$tv->id}}" onclick="subTv({{$tv->id}})"
                                               class="glyphicon glyphicon-unchecked"></span>
-                                    </a>
-                                @endif
-                            </h4>
-                        </div>
-                        <div id="collapse{{$tv['id']}}" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <ul class="list-inline">
-                                    <li class="list-group-item">Genre: {{$tv->genre}}</li>
-                                    <li class="list-group-item">Channel: {{$tv->channel}}</li>
-                                    <li class="list-group-item">Status: {{$tv->status}}</li>
+                                        </a>
+                                    @endif
+                                </h4>
+                            </div>
+                            <div id="collapse{{$tv['id']}}" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li class="list-group-item">Genre: {{$tv->genre}}</li>
+                                        <li class="list-group-item">Channel: {{$tv->channel}}</li>
+                                        <li class="list-group-item">Status: {{$tv->status}}</li>
                                     <span data-toggle="modal" data-target="#tvSource">
-                                <a href="{{config('tvfetch.TVFETCH_SOURCE').$tv->id}}" target="_blank"
+                                <a onclick="showTvDetailModail({{$tv->id}})"
                                    class="pull-right"
                                    data-toggle="tooltip" data-placement="auto right" title="Details">
                                     <span class="glyphicon glyphicon-link"></span>
                                 </a>
                                 </span>
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
-        @endif
-    </div>
-@endforeach
+                    @endforeach
+                </div>
+            @endif
+        </div>
+    @endforeach
 </div>
 @if(!Session::has('email'))
     @include('modal.login')
 @endif
+@include('modal.tvDetail')
 </body>
 </html>
