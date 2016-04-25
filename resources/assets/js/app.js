@@ -48,6 +48,7 @@ $(document).ready(function () {
         $('#logoutBtn').hide();
     }
 });
+
 function showTvDetailModail(id) {
     $.get('tvDetail/' + id, function (data) {
         $('#tvDetailModal').find('.modal-body').html(data);
