@@ -2,3 +2,4 @@
 !.gitignore
 !css/
 !js/
+!rev-manifest.json
