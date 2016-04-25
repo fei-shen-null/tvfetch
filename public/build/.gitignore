@@ -1,5 +1,5 @@
 *
 !.gitignore
-!css/
-!js/
+!css
+!js
 !rev-manifest.json
