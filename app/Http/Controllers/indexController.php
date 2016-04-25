@@ -31,4 +31,13 @@ class IndexController extends Controller
         }
         return response()->view('index', compact(['tvList', 'subList']));
     }
+
+    public function tvDetail($id)
+    {
+        $file = 'tv/' . $id . '.html';
+        if (!\Storage::exists($file)) {
+            return response('Sorry Not Found', 404);
+        }
+        return response(\Storage::get($file));
+    }
 }
