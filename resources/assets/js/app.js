@@ -51,6 +51,7 @@ $(document).ready(function () {
 function showTvDetailModail(id) {
     $.get('tvDetail/' + id, function (data) {
         $('#tvDetailModal').find('.modal-body').html(data);
+        localStorage.setItem('tvDetail' + id, data.toString());
         $('#tvDetailModal').modal();
     }, 'html').fail(failFunc);
 }
