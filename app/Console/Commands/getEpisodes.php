@@ -8,6 +8,10 @@ use App\TvList;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * Class getEpisodes
+ * @package App\Console\Commands
+ */
 class getEpisodes extends Command
 {
     /**

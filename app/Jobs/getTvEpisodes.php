@@ -9,6 +9,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Log;
 
+/**
+ * Class getTvEpisodes
+ * @package App\Jobs
+ */
 class getTvEpisodes extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
@@ -66,12 +70,20 @@ class getTvEpisodes extends Job implements ShouldQueue
         unset($doc, $links, $html);
     }
 
+    /**
+     * @param $href
+     * @return bool
+     */
     private function isEpisode($href)
     {
         if (str_contains($href, 'cn163.net')) return false;
         return true;
     }
 
+    /**
+     * @param $txt
+     * @return bool
+     */
     private function ambiguousTxt($txt)
     {
         if (strlen($txt) <= 5 && !preg_match('/\d+集|E\d+/', $txt)) return true;

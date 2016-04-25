@@ -14,12 +14,19 @@ class SubController extends Controller
     private $email;
     private $user;
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function login(Request $request)
     {
         $this->checkEmail($request);
         return response(1)->cookie('email', $this->email, 60 * 24 * 365, null, null, null, false);
     }
 
+    /**
+     * @param Request $request
+     */
     public function checkEmail(Request $request)
     {
         //use session
@@ -42,6 +49,9 @@ class SubController extends Controller
         $this->user = User::byEmail($this->email);
     }
 
+    /**
+     * @return mixed
+     */
     public function logout()
     {
         Session::forget('email');
@@ -49,6 +59,11 @@ class SubController extends Controller
         return back()->cookie($cookie);
     }
 
+    /**
+     * @param Request $request
+     * @param $tv
+     * @return mixed
+     */
     public function sub(Request $request, $tv)
     {
         $this->checkEmail($request);
@@ -60,6 +75,12 @@ class SubController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @param $tv
+     * @return mixed
+     * @throws \Exception
+     */
     public function unSub(Request $request, $tv)
     {
         $this->checkEmail($request);
