@@ -1,4 +1,4 @@
-# tinyMIPS
+# TvFetch
 ###Subscribe by email and stay tuned
 
 ##How to use
