@@ -9,6 +9,7 @@ use Cache;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cookie;
 use Session;
+use Storage;
 
 class IndexController extends Controller
 {
@@ -18,7 +19,7 @@ class IndexController extends Controller
         if (!Session::has('email') && Cookie::has('email')) {
             Session::put('email', Cookie::get('email'));
         }
-        $tvList = Cache::remember('index.tvList', 60, function () {
+        $tvList = Cache::remember('index.tvList', 400, function () {
             return TvList::join('tv', 'tv_list.tv_id', '=', 'tv.id')->get()->groupBy('day_of_week');
         });
         $subList = new Collection;
@@ -35,9 +36,11 @@ class IndexController extends Controller
     public function tvDetail($id)
     {
         $file = 'tv/' . $id . '.html';
-        if (!\Storage::exists($file)) {
+        if (!Storage::exists($file)) {
             return response('Sorry Not Found', 404);
         }
-        return response(\Storage::get($file));
+        $tmp=Storage::get($file);
+        Cache::add('tvDetail.'.$id,$tmp,400);
+        return response($tmp);
     }
 }
