@@ -12,6 +12,6 @@ class ExampleTest extends TestCase
     {
         $this->baseUrl = config('app.url');
         $this->visit('/')
-            ->see('tvfetch');
+            ->see('美剧订阅');
     }
 }

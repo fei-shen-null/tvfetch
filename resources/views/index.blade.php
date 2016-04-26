@@ -37,6 +37,7 @@
     </div>
 </header>
 <body>
+@include('google.analyticstracking')
 <nav class="navbar navbar-inverse" id="weekScrollspy">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#weekNavbar">
