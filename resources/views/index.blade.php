@@ -27,7 +27,7 @@
         7 => 'Sun'
 ]
 ?>
-<head class="container-fluid">
+<header class="container-fluid">
     <div class="jumbotron">
         <h2>美剧订阅 US Series
             <small>Subscribe With Email</small>
@@ -35,7 +35,7 @@
         <p>New Episodes Everyday</p>
         <p>Subscribe to fnd out more</p>
     </div>
-</head>
+</header>
 <body>
 @include('google.analyticstracking')
 <nav class="navbar navbar-inverse" id="weekScrollspy">
