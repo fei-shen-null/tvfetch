@@ -1,6 +1,6 @@
 <?php
 Route::group(['middleware' => 'web'], function () {
-    Route::get('/', "indexController@index");
+    Route::get('/', "IndexController@index");
 
     Route::any('subscribe/{tv}', 'SubController@sub');
     Route::any('unsubscribe/{tv}', 'SubController@unSub');
