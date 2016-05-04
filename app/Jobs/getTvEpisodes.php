@@ -17,16 +17,19 @@ use Storage;
 class getTvEpisodes extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
-    public $tv;
+    protected $tv;
+    protected $skipMails;
 
     /**
      * Create a new job instance.
      *
      * @param Tv $tv
+     * @param bool $skipMails
      */
-    public function __construct(Tv $tv)
+    public function __construct(Tv $tv, $skipMails = false)
     {
         $this->tv = $tv;
+        $this->skipMails = $skipMails;
     }
 
     /**
@@ -66,7 +69,7 @@ class getTvEpisodes extends Job implements ShouldQueue
                     'href' => $href,
                     'txt' => $txt
                 ]);
-                dispatch((new newEpisodesMail($this->tv, $newEpisode))->onQueue('newEpisodesMail'));
+                $this->skipMails or dispatch((new newEpisodesMail($this->tv, $newEpisode))->onQueue('newEpisodesMail'));
             }
         }
         //save entry to storage
@@ -95,7 +98,7 @@ class getTvEpisodes extends Job implements ShouldQueue
      */
     private function ambiguousTxt($txt)
     {
-        if (strlen($txt) <= 5 && !preg_match('/\d+集|E\d+/', $txt)) return true;
+        if (strlen($txt) <= 5 || !preg_match('/\d+集|E\d+/', $txt)) return true;
         return false;
     }
 }

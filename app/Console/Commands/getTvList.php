@@ -17,7 +17,7 @@ class getTvList extends Command
      *
      * @var string
      */
-    protected $signature = 'tv:getList {uri=http://cn163.net/2014the-tv-show/}';
+    protected $signature = 'tv:getList {uri=http://cn163.net/2014the-tv-show/} {--skipMails}';
 
     /**
      * The console command description.
@@ -89,7 +89,7 @@ class getTvList extends Command
         //remove old tv_list
         TvList::whereNotIn('tv_id', $newList)->delete();
         //notify new tv to users
-        if (!empty($newTV)) {
+        if (!empty($newTV) && !$this->option('skipMails')) {
             $users = Sub2NewTv::Join('users', (new Sub2NewTv)->getTable() . '.user_id', '=', 'users.id')->pluck('email', 'id')->all();
             foreach (array_chunk($users, config('tvfetch.MAIL_TO_LIMIT', 1000), true) as $userChunk) {
                 Mail::queueOn('newTvMail', 'emails.newtv', ['newTv' => $newTV], function ($m) use ($userChunk) {

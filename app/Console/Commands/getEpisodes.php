@@ -19,7 +19,7 @@ class getEpisodes extends Command
      *
      * @var string
      */
-    protected $signature = 'tv:getEpisodes';
+    protected $signature = 'tv:getEpisodes {--skipMails}';
 
     /**
      * The console command description.
@@ -47,7 +47,7 @@ class getEpisodes extends Command
     {
         $tvList = TvList::all();
         foreach ($tvList as $tv) {
-            dispatch((new getTvEpisodes(Tv::findOrFail($tv->tv_id)))->onQueue('getTvEpisodes'));
+            dispatch((new getTvEpisodes(Tv::findOrFail($tv->tv_id), $this->option('skipMails')))->onQueue('getTvEpisodes'));
         }
         echo 'getTvEpisodes@' . Carbon::now()->toRssString() . PHP_EOL;
     }
