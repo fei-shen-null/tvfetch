@@ -11,7 +11,7 @@ class getTvEpisodes extends TestCase
 
     public function testMail()
     {
-        (new \App\Jobs\getTvEpisodes(\App\Tv::find(1629)))->handle();
+//        (new \App\Jobs\getTvEpisodes(\App\Tv::find(1629)))->handle();
 
     }
 
