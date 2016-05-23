@@ -39,8 +39,9 @@ class IndexController extends Controller
         if (!Storage::exists($file)) {
             return response('Sorry Not Found', 404);
         }
-        $tmp = Storage::get($file);
-        Cache::add('tvDetail.' . $id, $tmp, 400);
-        return response($tmp);
+        $tmp = Cache::remember($file,400,function() use ($file){
+            return Storage::exists($file)?Storage::get($file):null;
+        });
+        return $tmp===null?response('Sorry Not Found', 404):response($tmp);
     }
 }
