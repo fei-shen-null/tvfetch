@@ -36,9 +36,6 @@ class IndexController extends Controller
     public function tvDetail($id)
     {
         $file = 'tv/' . $id . '.html';
-        if (!Storage::exists($file)) {
-            return response('Sorry Not Found', 404);
-        }
         $tmp = Cache::remember($file,400,function() use ($file){
             return Storage::exists($file)?Storage::get($file):null;
         });
