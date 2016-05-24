@@ -1,6 +1,6 @@
 # TvFetch
 ###Subscribe by email and stay tuned
-`http://tvfetch.shenfei.science`
+`http://tv.shenfei.lol`
 ##How to use
 
 >fetch the current TVs<br>
