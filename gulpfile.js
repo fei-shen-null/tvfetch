@@ -11,8 +11,18 @@ var elixir = require('laravel-elixir');
  |
  */
 elixir.config.sourcemaps = false;
-elixir(function(mix) {
-    mix.sass('app.scss');
-    mix.scripts(['app.js'], 'public/js/app.js');
-    mix.version(['css/app.css', 'js/app.js']);
+elixir(function (mix) {
+    mix
+        .sass('app.scss', 'resources/assets/css/app.css')
+        .less('bootstrap-tour.less', 'resources/assets/css/bootstrap-tour.css')
+        .styles([
+            'app.css',
+            'bootstrap-tour.css'
+        ], 'public/css/app.css')
+        .coffee('bootstrap-tour.coffee', 'resources/assets/js/bootstrap-tour.js')
+        .scripts([
+            'app.js',
+            'bootstrap-tour.js'
+        ], 'public/js/app.js')
+        .version(['css/app.css', 'js/app.js']);
 });
