@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
     <title>美剧订阅 | 美剧下载 | US TV Series Subscribe Download</title>
     <meta charset="utf-8">
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{elixir('css/app.css')}}">
     <script defer src="{{elixir('js/app.js')}}"></script>
 </head>
-<?php  $WEEK = [
+<?php const WEEK = [
         1 => 'Mon',
         2 => 'Tue',
         3 => 'Wed',
