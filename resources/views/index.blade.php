@@ -87,17 +87,18 @@
                             </div>
                             <div id="collapse{{$tv['id']}}" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <ul class="list-inline">
+                                    <ul class="list-group list-inline">
                                         <li class="list-group-item">Genre: {{$tv->genre}}</li>
                                         <li class="list-group-item">Channel: {{$tv->channel}}</li>
                                         <li class="list-group-item">Status: {{$tv->status}}</li>
-                                        <span data-toggle="modal" data-target="#tvSource">
-                                            <a onclick="showTvDetailModail({{$tv->id}})"
-                                               class="pull-right"
-                                               data-toggle="tooltip" data-placement="auto right" title="Details">
-                                                <span class="glyphicon glyphicon-link"></span>
-                                            </a>
-                                        </span>
+                                        <li class="pull-right">
+                                            <span data-toggle="modal" data-target="#tvSource">
+                                                <a onclick="showTvDetailModail({{$tv->id}})"
+                                                   data-toggle="tooltip" data-placement="auto right" title="Details">
+                                                    <span class="glyphicon glyphicon-link"></span>
+                                                </a>
+                                            </span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
