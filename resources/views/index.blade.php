@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link rel="stylesheet" href="{{elixir('css/app.css')}}">
-    <script async src="{{elixir('js/app.js')}}"></script>
+    <script defer src="{{elixir('js/app.js')}}"></script>
 </head>
 <?php  $WEEK = [
         1 => 'Mon',
@@ -91,13 +91,13 @@
                                         <li class="list-group-item">Genre: {{$tv->genre}}</li>
                                         <li class="list-group-item">Channel: {{$tv->channel}}</li>
                                         <li class="list-group-item">Status: {{$tv->status}}</li>
-                                    <span data-toggle="modal" data-target="#tvSource">
-                                <a onclick="showTvDetailModail({{$tv->id}})"
-                                   class="pull-right"
-                                   data-toggle="tooltip" data-placement="auto right" title="Details">
-                                    <span class="glyphicon glyphicon-link"></span>
-                                </a>
-                                </span>
+                                        <span data-toggle="modal" data-target="#tvSource">
+                                            <a onclick="showTvDetailModail({{$tv->id}})"
+                                               class="pull-right"
+                                               data-toggle="tooltip" data-placement="auto right" title="Details">
+                                                <span class="glyphicon glyphicon-link"></span>
+                                            </a>
+                                        </span>
                                     </ul>
                                 </div>
                             </div>

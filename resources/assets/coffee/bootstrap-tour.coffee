@@ -6,7 +6,7 @@
       try
         storage = window.localStorage
       catch
-# localStorage may be unavailable due to security settings
+        # localStorage may be unavailable due to security settings
         storage = false
       @_options = $.extend
         name: 'tour'
@@ -67,17 +67,17 @@
         overlayElementShown: false
       @
 
-# Add multiple steps
+    # Add multiple steps
     addSteps: (steps) ->
       @addStep step for step in steps
       @
 
-# Add a new step
+    # Add a new step
     addStep: (step) ->
       @_options.steps.push step
       @
 
-# Get a step by its indice
+    # Get a step by its indice
     getStep: (i) ->
       if @_options.steps[i]?
         $.extend
@@ -112,7 +112,7 @@
           onRedirectError: @_options.onRedirectError
         , @_options.steps[i]
 
-# Setup event bindings and continue a tour that has already started
+    # Setup event bindings and continue a tour that has already started
     init: (force) ->
       @_force = force
 
@@ -134,7 +134,7 @@
       @_inited = true
       @
 
-# Start tour from current step
+    # Start tour from current step
     start: (force = false) ->
       @init force unless @_inited # Backward compatibility
 
@@ -143,12 +143,12 @@
         @_callOnPromiseDone(promise, @showStep, 0)
       @
 
-# Hide current step and show next step
+    # Hide current step and show next step
     next: ->
       promise = @hideStep @_current
       @_callOnPromiseDone promise, @_showNextStep
 
-# Hide current step and show prev step
+    # Hide current step and show prev step
     prev: ->
       promise = @hideStep @_current
       @_callOnPromiseDone promise, @_showPrevStep
@@ -157,7 +157,7 @@
       promise = @hideStep @_current
       @_callOnPromiseDone promise, @showStep, i
 
-# End tour
+    # End tour
     end: ->
       endHelper = (e) =>
         $(document).off "click.tour-#{@_options.name}"
@@ -174,18 +174,18 @@
       promise = @hideStep(@_current)
       @_callOnPromiseDone(promise, endHelper)
 
-# Verify if tour is enabled
+    # Verify if tour is enabled
     ended: ->
       not @_force and not not @_getState 'end'
 
-# Restart tour
+    # Restart tour
     restart: ->
       @_removeState 'current_step'
       @_removeState 'end'
       @_removeState 'redirect_to'
       @start()
 
-# Pause step timer
+    # Pause step timer
     pause: ->
       step = @getStep @_current
       return @ unless step and step.duration
@@ -198,7 +198,7 @@
 
       step.onPause @, @_duration if step.onPause?
 
-# Resume step timer
+    # Resume step timer
     resume: ->
       step = @getStep @_current
       return @ unless step and step.duration
@@ -214,7 +214,7 @@
 
       step.onResume @, @_duration if step.onResume? and @_duration isnt step.duration
 
-# Hide the specified step
+    # Hide the specified step
     hideStep: (i) ->
       step = @getStep i
       return unless step
@@ -244,7 +244,7 @@
       @_callOnPromiseDone promise, hideStepHelper
       promise
 
-# Show the specified step
+    # Show the specified step
     showStep: (i) ->
       if @ended()
         @_debug 'Tour ended, showStep prevented.'
@@ -265,8 +265,7 @@
         path = switch ({}).toString.call step.path
           when '[object Function]' then step.path()
           when '[object String]' then @_options.basePath + step.path
-          else
-            step.path
+          else step.path
 
         # Redirect to step path if not already there
         if @_isRedirect step.host, path, document.location
@@ -316,7 +315,7 @@
     getCurrentStep: ->
       @_current
 
-# Setup current step variable
+    # Setup current step variable
     setCurrentStep: (value) ->
       if value?
         @_current = value
@@ -326,11 +325,11 @@
         @_current = if @_current is null then null else parseInt @_current, 10
       @
 
-# Manually trigger a redraw on the overlay element
+    # Manually trigger a redraw on the overlay element
     redraw: ->
       @_showOverlayElement(@getStep(@getCurrentStep()).element, true)
 
-# Set a state in storage
+    # Set a state in storage
     _setState: (key, value) ->
       if @_options.storage
         keyName = "#{@_options.name}_#{key}"
@@ -343,7 +342,7 @@
         @_state ?= {}
         @_state[key] = value
 
-# Remove the current state from the storage layer
+    # Remove the current state from the storage layer
     _removeState: (key) ->
       if @_options.storage
         keyName = "#{@_options.name}_#{key}"
@@ -352,7 +351,7 @@
       else
         delete @_state[key] if @_state?
 
-# Get the current state from the storage layer
+    # Get the current state from the storage layer
     _getState: (key) ->
       if @_options.storage
         keyName = "#{@_options.name}_#{key}"
@@ -365,7 +364,7 @@
       @_options.afterGetState key, value
       return value
 
-# Show next step
+    # Show next step
     _showNextStep: ->
       step = @getStep @_current
       showNextStepHelper = (e) => @showStep step.next
@@ -373,7 +372,7 @@
       promise = @_makePromise(step.onNext @ if step.onNext?)
       @_callOnPromiseDone promise, showNextStepHelper
 
-# Show prev step
+    # Show prev step
     _showPrevStep: ->
       step = @getStep @_current
       showPrevStepHelper = (e) => @showStep step.prev
@@ -381,11 +380,11 @@
       promise = @_makePromise(step.onPrev @ if step.onPrev?)
       @_callOnPromiseDone promise, showPrevStepHelper
 
-# Print message in console
+    # Print message in console
     _debug: (text) ->
       window.console.log "Bootstrap Tour '#{@_options.name}' | #{text}" if @_options.debug
 
-# Check if step path equals current document path
+    # Check if step path equals current document path
     _isRedirect: (host, path, location) ->
       if host isnt ''
         return true if @_isHostDifferent(host, location.href)
@@ -398,12 +397,12 @@
 
       path? and path isnt '' and (
         (({}).toString.call(path) is '[object RegExp]' and not path.test(currentPath)) or
-          (({}).toString.call(path) is '[object String]' and @_isPathDifferent(path, currentPath))
+        (({}).toString.call(path) is '[object String]' and @_isPathDifferent(path, currentPath))
       )
 
     _isHostDifferent: (host, currentURL) ->
       @_getProtocol(host) isnt @_getProtocol(currentURL) or
-        @_getHost(host) isnt @_getHost(currentURL)
+      @_getHost(host) isnt @_getHost(currentURL)
 
     _isPathDifferent: (path, currentPath) ->
       @_getPath(path) isnt @_getPath(currentPath) or not
@@ -422,12 +421,12 @@
 
       if ({}).toString.call(path) is '[object String]'
         return @_getPath(path) is @_getPath(currentPath) and
-            @_equal(@_getQuery(path), @_getQuery(currentPath)) and not
+          @_equal(@_getQuery(path), @_getQuery(currentPath)) and not
           @_equal(@_getHash(path), @_getHash(currentPath))
 
       false
 
-# Execute the redirect
+    # Execute the redirect
     _redirect: (step, i, path) ->
       if $.isFunction step.redirect
         step.redirect.call this, path
@@ -443,18 +442,19 @@
           document.location.href = "#{step.host}#{path}"
 
     _isOrphan: (step) ->
-# Do not check for is(':hidden') on svg elements. jQuery does not work properly on svg.
-      not step.element? or not $(step.element).length or
-        $(step.element).is(':hidden') and
-          ($(step.element)[0].namespaceURI isnt 'http://www.w3.org/2000/svg')
+      # Do not check for is(':hidden') on svg elements. jQuery does not work properly on svg.
+      not step.element? or
+      not $(step.element).length or
+      $(step.element).is(':hidden') and
+      ($(step.element)[0].namespaceURI isnt 'http://www.w3.org/2000/svg')
 
     _isLast: ->
       @_current < @_options.steps.length - 1
 
-# Show step popover
+    # Show step popover
     _showPopover: (step, i) ->
-# Remove previously existing tour popovers. This prevents displaying of
-# multiple inactive popovers when user navigates the tour too quickly.
+      # Remove previously existing tour popovers. This prevents displaying of
+      # multiple inactive popovers when user navigates the tour too quickly.
       $(".tour-#{@_options.name}").remove()
 
       options = $.extend {}, @_options
@@ -499,7 +499,7 @@
       @_reposition $tip, step
       @_center $tip if isOrphan
 
-# Get popover template
+    # Get popover template
     _template: (step, i) ->
       template = step.template
 
@@ -517,17 +517,17 @@
       $template.addClass "tour-#{@_options.name}-reflex" if step.reflex
       if step.prev < 0
         $prev.addClass('disabled')
-        $prev.prop('disabled', true)
+        $prev.prop('disabled',true)
       if step.next < 0
         $next.addClass('disabled')
-        $next.prop('disabled', true)
+        $next.prop('disabled',true)
       $resume.remove() unless step.duration
       $template.clone().wrap('<div>').parent().html()
 
     _reflexEvent: (reflex) ->
       if ({}).toString.call(reflex) is '[object Boolean]' then 'click' else reflex
 
-# Prevent popover from crossing over the edge of the window
+    # Prevent popover from crossing over the edge of the window
     _reposition: ($tip, step) ->
       offsetWidth = $tip[0].offsetWidth
       offsetHeight = $tip[0].offsetHeight
@@ -553,15 +553,15 @@
         if originalTop isnt tipOffset.top
           @_replaceArrow $tip, (tipOffset.top - originalTop) * 2, offsetHeight, 'top'
 
-# Center popover in the page
+    # Center popover in the page
     _center: ($tip) ->
       $tip.css('top', $(window).outerHeight() / 2 - $tip.outerHeight() / 2)
 
-# Copy pasted from bootstrap-tooltip.js with some alterations
+    # Copy pasted from bootstrap-tooltip.js with some alterations
     _replaceArrow: ($tip, delta, dimension, position)->
       $tip.find('.arrow').css position, if delta then 50 * (1 - delta / dimension) + '%' else ''
 
-# Scroll to the popup if it is not in the viewport
+    # Scroll to the popup if it is not in the viewport
     _scrollIntoView: (element, callback) ->
       $element = $(element)
       return callback() unless $element.length
@@ -582,13 +582,13 @@
             Animation end element offset: #{$element.offset().top}.
             Window height: #{$window.height()}."""
 
-# Debounced window resize
+    # Debounced window resize
     _onResize: (callback, timeout) ->
       $(window).on "resize.tour-#{@_options.name}", ->
         clearTimeout(timeout)
         timeout = setTimeout(callback, 100)
 
-# Event bindings for mouse navigation
+    # Event bindings for mouse navigation
     _initMouseNavigation: ->
       _this = @
 
@@ -617,7 +617,7 @@
         $this.text if _this._paused then $this.data 'pause-text' else $this.data 'resume-text'
         if _this._paused then _this.resume() else _this.pause()
 
-# Keyboard navigation
+    # Keyboard navigation
     _initKeyboardNavigation: ->
       return unless @_options.keyboard
 
@@ -635,7 +635,7 @@
             e.preventDefault()
             @end()
 
-# Checks if the result of a callback is a promise
+    # Checks if the result of a callback is a promise
     _makePromise: (result) ->
       if result and $.isFunction(result.then) then result else null
 
@@ -753,7 +753,7 @@
 
     _equal: (obj1, obj2) ->
       if ({}).toString.call(obj1) is '[object Object]' and
-        ({}).toString.call(obj2) is '[object Object]'
+      ({}).toString.call(obj2) is '[object Object]'
         for k,v of obj1
           return false if obj2[k] isnt v
         for k,v of obj2
@@ -761,4 +761,6 @@
         return true
 
       return obj1 is obj2
-  window.Tour = Tour) jQuery, window
+  window.Tour = Tour
+
+) jQuery, window

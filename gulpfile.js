@@ -22,7 +22,8 @@ elixir(function (mix) {
         .coffee('bootstrap-tour.coffee', 'resources/assets/js/bootstrap-tour.js')
         .scripts([
             'app.js',
-            'bootstrap-tour.js'
+            'bootstrap-tour.js',
+            'tour.js'
         ], 'public/js/app.js')
         .version(['css/app.css', 'js/app.js']);
 });
