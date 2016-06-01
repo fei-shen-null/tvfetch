@@ -46,7 +46,15 @@ class getTvList extends Command
         $uri = $this->argument('uri');
         $doc = new \DOMDocument('1.0', 'UTF8');
         $internalErrors = libxml_use_internal_errors(true);
-        $html = file_get_contents($uri);
+        $options = array(
+            'http' => array(
+                'method' => "GET",
+                'header' =>
+                    "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.10 Safari/537.36"
+            )
+        );
+        $context = stream_context_create($options);
+        $html = file_get_contents($uri, false, $context);
         if ($html === false) {
             Log::error('Cannot fetch tv list.');
             die();
@@ -64,15 +72,19 @@ class getTvList extends Command
                 $dayOfWeek++;
                 continue;
             }
-            preg_match('/archives\/(?P<id>.+)\//', $tds->item(0)->firstChild->getAttribute('href'), $tvID);
+
+            $link = $tds->item(0)->firstChild;
+            if (empty($link) || ($link instanceof \DOMText)) continue;
+            $href = $link->getAttribute('href');
+            preg_match('/archives\/(?P<id>.+)\//', $href, $tvID);
             $tv = array(
                 'id' => intval($tvID['id']),
                 'day_of_week' => $dayOfWeek,
                 'name_cn' => $tds->item(0)->firstChild->nodeValue,
-                'name_en' => $tds->item(2)->nodeValue,
-                'channel' => $tds->item(4)->nodeValue,
-                'genre' => $tds->item(6)->nodeValue,
-                'status' => $tds->item(8)->nodeValue
+                'name_en' => $tds->item(1)->nodeValue,
+                'channel' => $tds->item(2)->nodeValue,
+                'genre' => $tds->item(3)->nodeValue,
+                'status' => $tds->item(4)->nodeValue
             );
             $newList[] = $tv['id'];
             $tvMod = Tv::find($tv['id']);
