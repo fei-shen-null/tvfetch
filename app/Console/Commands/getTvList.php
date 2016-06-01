@@ -74,7 +74,7 @@ class getTvList extends Command
             }
 
             $link = $tds->item(0)->firstChild;
-            if (empty($link) || ($link instanceof \DOMText)) continue;
+            if (empty($link) || ($link instanceof \DOMText)) continue;//missing a href will result in a DOMText
             $href = $link->getAttribute('href');
             preg_match('/archives\/(?P<id>.+)\//', $href, $tvID);
             $tv = array(
