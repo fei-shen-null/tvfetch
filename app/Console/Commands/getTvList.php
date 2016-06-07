@@ -60,6 +60,7 @@ class getTvList extends Command
             die();
         }
         $doc->loadHTML($html);
+        $xpath = new \DOMXpath($doc);
         libxml_use_internal_errors($internalErrors);
         $trs = $doc->getElementsByTagName('tr');
         $dayOfWeek = 0;
@@ -72,20 +73,20 @@ class getTvList extends Command
                 $dayOfWeek++;
                 continue;
             }
-
-            $link = $tds->item(0)->firstChild;
+            $link = $xpath->query('.//td[contains(@class, "column-1")]/a',$tr)->item(0);
             if (empty($link) || ($link instanceof \DOMText)) continue;//missing a href will result in a DOMText
             $href = $link->getAttribute('href');
             preg_match('/archives\/(?P<id>.+)\//', $href, $tvID);
             $tv = array(
                 'id' => intval($tvID['id']),
                 'day_of_week' => $dayOfWeek,
-                'name_cn' => $tds->item(0)->firstChild->nodeValue,
-                'name_en' => $tds->item(1)->nodeValue,
-                'channel' => $tds->item(2)->nodeValue,
-                'genre' => $tds->item(3)->nodeValue,
-                'status' => $tds->item(4)->nodeValue
+                'name_cn' => $xpath->query('.//td[contains(@class, "column-1")]/a',$tr)->item(0)->nodeValue,
+                'name_en' => $xpath->query('.//td[contains(@class, "column-2")]',$tr)->item(0)->nodeValue,
+                'channel' =>$xpath->query('.//td[contains(@class, "column-3")]',$tr)->item(0)->nodeValue,
+                'genre' => $xpath->query('.//td[contains(@class, "column-4")]',$tr)->item(0)->nodeValue,
+                'status' => $xpath->query('.//td[contains(@class, "column-5")]',$tr)->item(0)->nodeValue
             );
+            print_r($tv);
             $newList[] = $tv['id'];
             $tvMod = Tv::find($tv['id']);
             if (is_null($tvMod)) {//insert tv
