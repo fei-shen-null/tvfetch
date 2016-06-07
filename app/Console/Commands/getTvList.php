@@ -86,7 +86,6 @@ class getTvList extends Command
                 'genre' => $xpath->query('.//td[contains(@class, "column-4")]',$tr)->item(0)->nodeValue,
                 'status' => $xpath->query('.//td[contains(@class, "column-5")]',$tr)->item(0)->nodeValue
             );
-            print_r($tv);
             $newList[] = $tv['id'];
             $tvMod = Tv::find($tv['id']);
             if (is_null($tvMod)) {//insert tv
